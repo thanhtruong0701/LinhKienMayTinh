@@ -1,0 +1,309 @@
+<div class="preloader-wrapper">
+	<div class="preloader"></div>
+</div>
+<!-- NAV1 - START -->
+<nav class="secondary-nav border-bottom-dark text-white"
+	style="background-color: rgb(237, 0, 0); font-weight: 500; height: 56px">
+	<div class="container">
+		<div class="row py-2">
+			<div class="col-lg-2 logo">
+				<a th:href="@{|/home|}"> <img th:src="@{|/images/main2.png|}" alt="logo"
+					class="w-75">
+				</a>
+			</div>
+			<div class="col-lg-5 search">
+				<form th:action="@{|/shop/search|}" method="POST">
+				<div class="input-group">
+					<input type="text" class="form-control bg-white" style="height: 40px" th:value="${keywords}" name="keywords" placeholder="Nhập tên laptop, phụ kiện... cần tìm">
+					<button class="btn btn-dark mb-4 px-4">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				</form>
+			</div>
+			<div class="col-lg-5 col-sm-12 user-items">
+				<ul class="d-flex justify-content-end list-unstyled">
+					<th:block th:unless="${#request.remoteUser}"> <!-- Nếu chưa đăng nhập -->
+						<li>
+							<a type="button" th:href="@{|/login|}"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
+						</li>
+						<li>
+							<a th:href="@{|/cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng <sup>({{cart.count}})</sup></span></a>
+						</li>
+					</th:block>
+					<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
+						<li>
+							<a class="" th:href="@{|/logoff|}"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
+						</li>
+						<li>
+							<a th:href="@{|/cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng <sup>({{cart.count}})</sup></span></a>
+						</li>
+					</th:block>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- NAV1 - END -->
+<!-- NAV2 - START -->
+<nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid d-flex justify-content-between">
+		<div class="row">
+			<div class="col-lg-12 col-sm-12">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      				<span class="navbar-toggler-icon"></span>
+    			</button>
+				<div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item me-2"><a class="nav-link active text-white" aria-current="page" th:href="@{|/home|}"><i class="bi bi-house-check"></i> Home</a></li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-laptop"></i> Laptop</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark">
+								<div class="row m-auto">
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Thương hiệu</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop|}">Tất cả</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=Asus|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=Acer|}">Acer</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=MSI|}">MSI</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=Lenovo|}">Lenovo</a></li>
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Thương hiệu</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=Dell|}">Dell</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=HP|}">HP</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=Gigabyte|}">Gigabyte</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?modelName=Apple|}">Apple(Macbook)</a></li>
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Mức giá</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/filter?minPrice=0&maxPrice=20000000&typeName=Laptop|}">Dưới 20 triệu</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/filter?minPrice=20000000&maxPrice=25000000&typeName=Laptop|}">Từ 20 đến 25 triệu</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/filter?minPrice=25000000&maxPrice=30000000&typeName=Laptop|}">Từ 25 đến 30 triệu</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/filter?minPrice=30000000&typeName=Laptop|}">Trên 30 triệu</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-cpu"></i> Linh kiện</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark mx-auto">
+								<div class="row m-auto">
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">VGA - Card màn hình</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ada 4090&typeName=Linh Kiện|}">RTX Ada 4090</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ada 4080&typeName=Linh Kiện|}">RTX Ada 4080</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ada 4070 Ti&typeName=Linh Kiện|}">RTX Ada 4070 Ti</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ada 4070&typeName=Linh Kiện|}">RTX Ada 4070</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=NVIDIA Quadro&typeName=Linh Kiện|}">NVIDIA Quadro</a></li>
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">VGA - Card màn hình</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ampere 3060&typeName=Linh Kiện|}">RTX Ampere 3060</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ampere 3050&typeName=Linh Kiện|}">RTX Ampere 3050</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=RTX Ampere 2060&typeName=Linh Kiện|}">RTX Ampere 2060</a></li>	
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=GTX 1650&typeName=Linh Kiện|}">GTX 1650</a></li>	
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=AMD Radeon RX&typeName=Linh Kiện|}">AMD Radeon RX</a></li>	
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">CPU - Intel</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=i9|}">Intel Core i9</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=i7|}">Intel Core i7</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=i5|}">Intel Core i5</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=i3|}">Intel Core i3</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=Xeon|}">Intel Xeon</a></li>
+									</div>
+									<div class="col-md-4 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">CPU - AMD</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=Ryzen 9|}">AMD Ryzen 9</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=Ryzen 7|}">AMD Ryzen 7</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=Ryzen 5|}">AMD Ryzen 5</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=Ryzen 3|}">AMD Ryzen 3</a></li>
+									</div>
+									<div class="col-md-4 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Bo mạch chủ Intel</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=H510|}">Intel H510</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=B610|}">Intel H610</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=B660|}">Intel B660</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=B760|}">Intel B760</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=Z790|}">Intel Z790</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Intel&pNotes=Main|}">Xem tất cả</a></li>
+									</div>
+									<div class="col-md-4 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Bo mạch chủ AMD</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=X570|}">AMD X570</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=B650|}">AMD B650 (Mới)</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=B550|}">AMD B550</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=A320|}">AMD A320</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=TRX40|}">AMD TRX40</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=AMD&pNotes=Main|}">Xem tất cả</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-memory"></i> Bộ nhớ</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark mx-auto">
+								<div class="row m-auto">
+									<div class="col-md-3 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Hãng SSD</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Wester Digital&pNotes=SSD|}">Wester Digital</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Samsung&pNotes=SSD|}">Samsung</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Kingston&pNotes=SSD|}">Kingston</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Corsair&pNotes=SSD|}">Corsair</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Gigabyte&pNotes=SSD|}">Gigabyte</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?pNotes=SSD|}">Xem tất cả</a></li>
+									</div>
+									<div class="col-md-3 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Hãng HDD</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Wester Digital&pNotes=HDD|}">Wester Digital</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?pNotes=HDD|}">Xem tất cả</a></li>
+									</div>
+									<div class="col-md-3 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Hãng RAM</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Corsair&pNotes=RAM|}">Corsair</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=Kingston&pNotes=RAM|}">Kingston</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=G.Skill&pNotes=RAM|}">G.Skill</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?modelName=PNY&pNotes=RAM|}">PNY</a></li>
+									</div>
+									<div class="col-md-3 mt-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Loại RAM</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?pNotes=DDR4|}">DDR4</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/linhkien?pNotes=DDR5|}">DDR5</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-headphones"></i> Phụ kiện</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark mx-auto">
+								<div class="row m-auto">
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Tai nghe</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Logitech</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">HyperX</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Razer</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Sony</a></li>	
+										<li><a class="dropdown-item" th:href="@{|#|}">Dare-U</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Rapoo</a></li>
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Thẻ nhớ - USB</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Sandisk</a></li>	
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Chuột - Lót chuột</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Logitech</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">HyperX</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Razer</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Dare-U</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Rapoo</a></li>
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Bàn phím</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Akko</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Logitech</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Razer</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Leopold</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-television"></i> Màn hình</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark mx-auto">
+								<div class="row m-auto">
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Hãng sản xuất</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/manhinh?modelName=Acer|}">Acer</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/manhinh?modelName=Asus|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/manhinh?modelName=LG|}">LG</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/manhinh?modelName=MSI|}">MSI</a></li>	
+										<li><a class="dropdown-item" th:href="@{|/shop/manhinh?modelName=Samsung|}">Samsung</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/manhinh?modelName=Xiaomi|}">Xiaomi</a></li>
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Độ phân giải</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=FullHD&typeName=Màn hình|}">Full HD</a></li>	
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=2K 2560 x 1440&typeName=Màn hình|}">2K QHD</a></li>	
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=4K&typeName=Màn hình|}">4K UHD</a></li>	
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Tần số quét</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=60Hz&typeName=Màn hình|}">60Hz</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=75Hz&typeName=Màn hình|}">75Hz</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=100Hz&typeName=Màn hình|}">100Hz</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=144Hz&typeName=Màn hình|}">144Hz</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=240Hz&typeName=Màn hình|}">240Hz</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
+							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|#|}"><span>||</span></a></li>
+							<li class="nav-item dropdown me-2">
+							<a class="nav-link px-3 text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user-circle-o"></i> [(${#request.remoteUser})]</a>
+								<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" th:href="@{|/profile|}">Thông tin cá nhân</a></li>
+									<li><a class="dropdown-item" th:href="@{|/order/list|}">Đơn hàng của bạn</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" th:href="@{|/forgotPassword|}">Quên mật khẩu</a></li>
+									<li><a class="dropdown-item" th:href="@{|/changePassword|}">Đổi mật khẩu</a></li>
+								</ul>
+							</li>
+						<th:block th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}"> <!-- Nếu là admin hoặc staf thì mới hiện -->
+							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|/admin/index|}"><i class="bi bi-person-fill-lock"></i> <span>Administration</span></a></li>
+						</th:block>
+						</th:block>
+						<th:block th:unless="${#request.remoteUser}"> <!-- Nếu chưa đăng nhập -->
+							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|/orderGuest/list|}"><i class="bi bi-bag-check"></i> <span>Kiểm tra đơn hàng</span></a></li>
+						</th:block>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- NAV2 - END -->

@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header fw-bold h4">
+    Product Management
+  </div>
+  <div class="card-body">
+  	<ul class="nav nav-tabs">
+		<li class="nav-item"><a class="nav-link fw-bold" data-bs-toggle="tab" type="button" data-bs-target="#edit" href="" aria-selected="false" aria-selected="false">Product Edition</a></li>
+		<li class="nav-item"><a class="nav-link fw-bold active" data-bs-toggle="tab" type="button" data-bs-target="#list" href="" aria-selected="true">List Products</a></li>
+	</ul>
+	<div class="tab-content ">
+		<div id="edit" class="tab-pane fade">
+			<div ng-include="'/admin/product/form.html'"></div>
+		</div>
+		<div id="list" class="tab-pane fade show active">
+			<div ng-include="'/admin/product/table.html'"></div>
+		</div>
+	</div>
+  </div>
+</div>

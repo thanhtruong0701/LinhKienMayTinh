@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <title>Administractor</title>
+</head>
+<body class="container" ng-app="app">
+	<div class="preloader-wrapper">
+  		<div class="preloader"></div>
+	</div>
+	
+  	<menu ng-include="'/admin/menu.html'"></menu>
+    
+    <main class="mt-5 pt-4">
+		<p ng-view></p>
+	</main>
+	<!--  
+	<footer class="mt-2">
+      <div class="panel panel-default">
+			<div class="panel-body text-center">
+				<h3>N7.Store &copy; 2023. All rights reserved.</h3>
+			</div>
+		</div>
+    </footer>
+    -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="js/jquery-3.5.1.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap5.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/admin-app.js"></script>
+	<script src="js/controller/order-ctrl.js"></script>
+	<script src="js/controller/product-ctrl.js"></script>
+	<script src="js/controller/home-ctrl.js"></script>
+	<script src="js/controller/orderGuest-ctrl.js"></script>
+    <script>
+		// Hàm điều chỉnh chiều cao của textarea
+		function showAllContent(textarea) {
+			textarea.style.height = 'auto';
+			textarea.style.height = (textarea.scrollHeight) + 'px';
+		}
+	</script>
+</body>
+</html>

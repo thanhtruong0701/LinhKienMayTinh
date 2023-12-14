@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
+<body>
+	<main>
+		<!-- Start Title -->
+		<div class="container-fluid pt-3 pb-1" style="background-color: rgb(233, 238, 245) !important;">
+			<div class="text-center">
+				<h1 class="fw-bold h2 text-dark">Đơn hàng của bạn !</h1>
+			</div>
+		</div>
+		<!-- Close Title -->
+
+		<div class="container my-5">
+			<table class="table table-hover border shadow">
+				<thead>
+					<tr>
+						<th style="padding-left: 8px;">NO.</th>
+						<th>ORDER ID</th>
+						<th>CREATE DATE</th>
+						<th>PHONE NUMBER</th>
+						<th>ADDRESS</th>
+						<th>STATUS</th>
+						<th style="padding-right: 8px;">ORDER DETAILS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="o,i : ${orders}" class="align-middle">
+						<td style="padding-left: 8px;">[(${i.index+1})]</td>
+						<td>[(${o.id})]</td>
+						<td>[(${o.createDate})]</td>
+						<td>[(${o.phonenumber})]</td>
+						<td>[(${o.address})]</td>
+						<th:block th:if="${o.orderStatus.id == 'CXN'}">
+							<td>[(${o.orderStatus.status_name})] - <a th:href="@{|/order/cancel/${o.id}|}" class="btn btn-outline-danger">Hủy đơn hàng</a></td>
+						</th:block>
+						<th:block th:if="${o.orderStatus.id != 'CXN'}">
+							<td>[(${o.orderStatus.status_name})]</td>
+						</th:block>
+						<td style="padding-right: 8px;"><a th:href="@{|/order/detail/${o.id}|}" class="btn btn-outline-success"><i class="fa fa-eye"></i> View Details</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
+</body>
+</html>

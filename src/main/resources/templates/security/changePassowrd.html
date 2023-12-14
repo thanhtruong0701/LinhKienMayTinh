@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
+<body>
+	<main>
+		<!-- Start Register Page -->
+    <div class="container-fluid pt-3 pb-1" style="background-color: rgb(233, 238, 245) !important;">
+        <div class="col-6 m-auto text-center">
+            <h1 class="fw-bold h2 text-dark">Change Password</h1>
+            <p>Đổi mật khẩu ?</p>
+        </div>
+    </div>
+	<!-- Close Register Page -->
+	
+	<!-- Start Register -->
+	<form th:action="@{|/changePassword|}" method="POST" class="m-auto col-6 shadow p-4 mt-4 mb-4" enctype="multipart/form-data">
+			<div class="alert alert-info py-2" role="alert">
+				Change Password - Đổi mật khẩu<br>
+				<small class="text-danger">[(${messC})]</small>
+			</div>
+			<hr class="p-0">
+			<div class="form-group mb-3">
+				<label class="fw-bold">Username*:</label>
+				<input th:if="${#request.remoteUser}" type="text" name="username" class="form-control" th:value="${#request.remoteUser}" readonly> <!-- Nếu username tồn tại thì hiện input này -->
+				<input th:unless="${#request.remoteUser}" type="text" name="username" class="form-control" placeholder="Enter Username ?" required> <!-- Nếu username ko tồn tại thì hiện input này -->
+			</div>
+			<div class="form-group mb-3">
+				<label class="fw-bold">Current Password*:</label> 
+				<input type="password" name="password" class="form-control" placeholder="Enter Current Password ?" required>
+			</div>
+			<div class="form-group mb-3">
+				<label class="fw-bold">New Password*:</label> 
+				<input type="password" name="newpassword" class="form-control" placeholder="Enter New Password ?" required>
+			</div>
+			<div class="form-group mb-3">
+				<label class="fw-bold">Confirm New Password*:</label> 
+				<input type="password" name="confirmpassword" class="form-control" placeholder="Enter Confirm New Password ?" required>
+			</div>
+			<div class="form-group text-end">
+				<button class="btn btn-primary fw-bold py-2 px-3">
+					<i class="fa fa-exchange me-1"></i> Change Password
+				</button>
+			</div>
+	</form>
+	<!-- Close Register Page -->
+	</main>
+</body>
+</html>

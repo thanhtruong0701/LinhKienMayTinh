@@ -1,0 +1,67 @@
+<div class="card">
+	<div class="card-header">
+		<span><i class="bi bi-table me-2"></i></span> Data Order
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="example" class="table table-striped data-table"
+				style="width: 100%">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th scope="col"><input type="checkbox"></th>
+						<th>ID</th>
+						<th>Product</th>
+						<th>Category</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Active</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items" scope="row">
+						<td class="align-middle">{{$index + 1}}</td>
+						<td class="align-middle"><input type="checkbox"></td>
+						<td class="align-middle">{{item.id}}</td>
+						<td class="align-middle"><img
+							src="/images/products/{{item.product_img1}}"
+							style="width: 52px; height: 52px;" /> {{item.product_name}}</td>
+						<td class="align-middle">{{item.productModel.productType.type_name}}</td>
+						<td class="align-middle">{{item.product_quantity}}</td>
+						<td class="align-middle">{{item.product_price}}</td>
+						<td class="align-middle">{{item.product_active?"Yes":"No"}}</td>
+						<td class="align-middle">
+							<div class="btn-group btn-group-xs">
+								<a ng-click="edit(item)" href="" class="btn btn-warning"> <i
+									class="fas fa-edit"></i>
+								</a> <a ng-click="delete(item)" href="" class="btn btn-danger"> <i
+									class="fas fa-trash"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="card-footer text-end">
+		<button ng-click="pager.first()" class="btn btn-danger">
+			<i class="fas fa-angle-double-left"></i>
+		</button>
+		<button ng-click="pager.prev()" class="btn btn-primary me-1">
+			<i class="fas fa-angle-left"></i>
+		</button>
+		<button class="btn btn-success me-1" ng-repeat="i in pager.array track by $index" ng-click="pager.gotoPage($index)">
+			<b>{{$index + 1}}</b>
+		</button>
+		{{pager.a}}
+		<button ng-click="pager.next()" class="btn btn-primary">
+			<i class="fas fa-angle-right"></i>
+		</button>
+		<button ng-click="pager.last()" class="btn btn-danger">
+			<i class="fas fa-angle-double-right"></i>
+		</button>
+
+	</div>
+</div>

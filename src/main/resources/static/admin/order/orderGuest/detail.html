@@ -1,0 +1,43 @@
+<div class="card">
+	<div class="card-header">
+		<span><i class="fa fa-info-circle me-1"></i></span> Order Details Guest
+	</div>
+<div class="card-body">
+		<div class="table-responsive">
+			<table id="example" class="table table-striped data-table" style="width: 100%">
+				<thead>
+					<tr>
+						<th>Detail ID</th>
+						<th>Product Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Total Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="odd in orderDetailsGuest" scope="row">
+						<td class="align-middle" style="width: 100px">{{odd.id}}</td>	
+						<td class="align-middle imgHide" style="width: 350px">
+							<p class="my-auto" title="Ảnh sản phẩm" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical;">
+								{{odd.product.product_name}}
+								<img src="/images/products/{{odd.product.product_img1}}">
+							</p>
+						</td>
+						<td class="align-middle">{{odd.price | number}}</td>	
+						<td class="align-middle">{{odd.quantity}}</td>	
+						<td class="align-middle">{{odd.quantity * odd.price | number}}<sup>VNĐ</sup></td>	
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>Detail ID</th>
+						<th>Product Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Total Price</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>

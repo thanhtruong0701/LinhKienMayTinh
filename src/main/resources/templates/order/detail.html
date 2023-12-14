@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}"> <!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
+<body>
+	<main th:object="${order}">
+		<!-- Start Title -->
+    <div class="container-fluid pt-3 pb-1" style="background-color: rgb(233, 238, 245) !important;">
+        <div class="text-center">
+            <h1 class="fw-bold h2 text-dark">Chi tiết hóa đơn</h1>
+            <h1 class="fw-bold h3 text-dark">Số: [(*{id})]</h1>
+        </div>
+    </div>
+	<!-- Close Title -->
+	
+	<!-- Start OrderDetail Page -->
+	<div class="m-auto container my-5">
+	<table class="table table-hover border shadow mt-3">
+		<thead>
+			<tr>
+				<th style="padding-left: 8px;">NO.</th>
+				<th style="width:150px">Product Image</th>
+				<th style="width:600px">Product Name</th>
+				<th>Product Price</th>
+				<th>Quantity</th>
+				<th style="padding-right: 8px;">TOTAL PRICE</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="detail : *{orderDetails}" th:object="${detail}" class="align-middle">
+				<td style="padding-left: 8px;">[(*{id})]</td>
+				<td><img th:src="@{|/images/products/*{product.product_img1}|}" class="img-fluid w-75 mx-auto d-block" style="height:90px"></td>
+				<td>[(*{product.product_name})]</td>
+				<td>[(*{#numbers.formatDecimal(price, 3,'POINT', 0, 'COMMA')})]</td>
+				<td>[(*{quantity})]</td>
+				<td style="padding-right: 8px;">[(*{#numbers.formatDecimal(price*quantity, 3,'POINT', 0, 'COMMA')})]<sup>đ</sup></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</main>
+</body>
+</html>

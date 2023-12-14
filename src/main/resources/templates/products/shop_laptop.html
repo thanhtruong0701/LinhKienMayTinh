@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}"> <!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
+<body>
+	<main>
+		<section id="banner-web-laptop" class="site-banner jarallax min-height300 padding-large" style="background-position: top;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 class="text-white" style="text-shadow: 0 0 5px black">Cửa hàng Laptop</h1>
+						<div class="breadcrumbs">
+							<span class="item"> <a class="text-white" th:href="@{|/home|}">Home /</a> </span>
+							<span class="item text-primary">Shop /</span>
+							<span class="item text-primary">Laptop</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="shopify-grid padding-large">
+			<div class="container">
+				<div class="row">
+					<section id="selling-products" class="col-md-9 product-store">
+						<div class="container">
+							<ul class="tabs list-unstyled">
+								<li class="tab"><a th:href="@{|/shop/laptop|}">Tất cả</a></li>
+								<li th:each="brand: ${productBrands}" class="tab"><a th:href="@{|/shop/laptop?modelName=${brand.brand_name}&typeName=${typeName}|}">[(${brand.brand_name})]</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="active">
+									<div class="row d-flex flex-wrap">
+										<div th:each="lap: ${laptop}"
+											class="col-lg-4 col-md-6 col-sm-6">
+											<div class="card mb-3">
+												<div class="product-item1">
+													<div class="d-flex justify-content-between p-2">
+														<a th:href="@{|/shop/laptop/${lap.id}|}">
+															<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${lap.product_name})]</p>
+														</a>
+													</div>
+													<a th:href="@{|/shop/laptop/${lap.id}|}">
+														<img th:src="@{|/images/products/${lap.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Laptop" />
+													</a>
+													<div class="card-body">
+														<!--  
+										<div class="d-flex justify-content-between">
+											<p class="small">
+												<a th:href="@{|#|}" class="text-muted">Laptops</a>
+											</p>
+											<p class="small">
+												<s>$1099</s>
+											</p>
+										</div>
+									-->
+														<div class="d-flex justify-content-between mb-3">
+															<h5 class="mb-0">Giá sản phẩm</h5>
+															<h5 class="text-dark mb-0">
+																[(${#numbers.formatDecimal(lap.product_price, 3,'POINT', 0, 'COMMA')})]<sup>đ</sup>
+															</h5>
+														</div>
+
+														<div class="d-flex justify-content-beetween mb-3">
+															<div class="small text-warning">
+																<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+																	class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+																	class="fa fa-star"></i> <span>(đánh giá)</span>
+															</div>
+														</div>
+													</div>
+													<div class="cart-concern">
+														<ul class="list-unstyled">
+															<li>
+																<a class="btn btn-danger btn-lg text-white ps-2 pe-2" th:attr="ng-click=@{|cart.add(${lap.id})|}">
+																	<i class="fa fa-cart-plus"></i> Thêm vào giỏ
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+                                </div>
+                            </div>
+                            <th:block th:if="${modelName == 'Laptop'}"> <!-- Nếu tồn tại brand == laptop -->
+							<div class="row"> <!-- button page -->
+                    			<div class="col-6 my-auto">
+									<p class="h3 text-dark">Showing <b class="text-danger">[(${laptop.number*9 + 1})]</b> to <b class="text-danger">[(${laptop.number*9 + laptop.numberOfElements})]</b> of <b class="text-danger">[(${laptop.totalElements})]</b> products</p>
+                    			</div>
+                    			<ul class="col-6 pagination pagination-lg justify-content-center">
+                        			<li class="page-item">
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=0&typeName=${typeName}&pNotes=${notes}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                      				</li>
+                        			<li class="page-item">
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number-1}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                        			</li>
+                        			<li class="page-item">
+          								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${laptop.number+1})]/[(${laptop.totalPages})]</a>   
+                        			</li>
+                        			<li class="page-item">
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number+1}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                        			</li>
+                        			<li class="page-item">
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=${laptop.totalPages-1}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-double-right"></i></a>
+                        			</li>
+                    			</ul>
+                			</div> <!-- end button page -->
+                			</th:block>
+                			<th:block th:if="${modelName != 'Laptop' && modelName != null}"> <!-- Nếu tồn tại brand != laptop -->
+							<div class="row"> <!-- button page -->
+                    			<div class="col-6 my-auto">
+									<p class="h3 text-dark">Showing <b class="text-danger">[(${laptop.number*9 + 1})]</b> to <b class="text-danger">[(${laptop.number*9 + laptop.numberOfElements})]</b> of <b class="text-danger">[(${laptop.totalElements})]</b> products</p>
+                    			</div>
+                    			<ul class="col-6 pagination pagination-lg justify-content-center">
+                        			<li class="page-item">
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=0&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                      				</li>
+                        			<li class="page-item">
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number-1}&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                        			</li>
+                        			<li class="page-item">
+          								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${laptop.number+1})]/[(${laptop.totalPages})]</a>   
+                        			</li>
+                        			<li class="page-item">
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number+1}&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                        			</li>
+                        			<li class="page-item">
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=${laptop.totalPages-1}&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-double-right"></i></a>
+                        			</li>
+                    			</ul>
+                			</div> <!-- end button page -->
+                			</th:block>
+                			<!-- 
+                			<th:block th:if="${session.keywords != '' && modelName == null}"> Nếu tồn tại keywords 
+							<div class="row"> button page
+                    			<div class="col-6 my-auto">
+									<p class="h3 text-dark">Showing <b class="text-danger">[(${laptop.number*9 + 1})]</b> to <b class="text-danger">[(${laptop.number*9 + laptop.numberOfElements})]</b> of <b class="text-danger">[(${laptop.totalElements})]</b> products</p>
+                    			</div>
+                    			<ul class="col-6 pagination pagination-lg justify-content-center">
+                        			<li class="page-item">
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/search?trang=0&keywords=${session.keywords}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                      				</li>
+                        			<li class="page-item">
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${laptop.number-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-left"></i></a>
+                        			</li>
+                        			<li class="page-item">
+          								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${laptop.number+1})]/[(${laptop.totalPages})]</a>   
+                        			</li>
+                        			<li class="page-item">
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${laptop.number+1}&keywords=${session.keywords}|}"><i class="fa fa-angle-right"></i></a>
+                        			</li>
+                        			<li class="page-item">
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/search?trang=${laptop.totalPages-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-double-right"></i></a>
+                        			</li>
+                    			</ul>
+                			</div> end button page
+                			</th:block>
+                			-->
+						</div>
+					</section>
+
+					<aside class="col-md-3">
+						<div class="sidebar">
+							<div class="widgets widget-menu">
+								<div class="widget-search-bar">
+									<form th:action="@{|/shop/search|}" role="search" method="POST" class="d-flex">
+										<input th:value="${session.keywords}" name="keywords" class="search-field" placeholder="Search" type="text">
+										<button class="btn btn-dark">
+											<i class="icon icon-search"></i>
+										</button>
+									</form>
+								</div>
+							</div>
+							<div class="widgets widget-price-filter">
+								<h5 class="widget-title mb-2">Tìm kiếm theo giá</h5>
+								<ul class="product-tags sidebar-list list-unstyled">
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=0.0&maxPrice=20000000&typeName=${typeName}|}">Dưới 20 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=20000000&maxPrice=25000000&typeName=${typeName}|}">Từ 20 - 25 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=25000000&maxPrice=30000000&typeName=${typeName}|}">Từ 25 - 30 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=30000000&maxPrice=&typeName=${typeName}|}">Trên 30 triệu</a></li> <!-- Maxprice = trống vì nếu trống nó sẽ gán giá của sp có giá lớn nhất -->
+								</ul>
+							</div>
+							<div class="widgets widget-inch-filter">
+								<h5 class="widget-title mb-2">Nhu cầu</h5>
+								<ul class="product-tags sidebar-list list-unstyled">
+									<li class="tags-item"><a th:href="@{|/shop/laptop?pNotes=GM&typeName=${typeName}|}">Gaming</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/laptop?pNotes=VP&typeName=${typeName}|}">Văn phòng</a></li>
+								</ul>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>

@@ -1,0 +1,188 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Edit Product</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-4 carousel" id="carouselExampleDark">
+				<div class="avatar-preview mb-3 carousel-item active">
+					<img ng-src="/images/products/{{ form.product_img1 }}"
+						style="max-width: 100%; height: 200px" />
+					<div class="edit-avatar">
+						<input type="file"
+							onchange="angular.element(this).scope().imageChanged(this.files,1)" />
+						<i class="fa fa-cloud-upload-alt fa-2x text-primary"></i>
+					</div>
+
+				</div>
+				<div class="avatar-preview mb-3 carousel-item">
+					<img ng-src="/images/products/{{ form.product_img2 }}" />
+					<div class="edit-avatar">
+						<input type="file"
+							onchange="angular.element(this).scope().imageChanged(this.files,2)" />
+						<i class="fa fa-cloud-upload-alt fa-2x text-primary"></i>
+					</div>
+				</div>
+				<div class="avatar-preview mb-3 carousel-item">
+					<img ng-src="/images/products/{{ form.product_img3 }}" />
+					<div class="edit-avatar">
+						<input type="file"
+							onchange="angular.element(this).scope().imageChanged(this.files,3)" />
+						<i class="fa fa-cloud-upload-alt fa-2x text-primary"></i>
+					</div>
+				</div>
+				<div class="avatar-preview mb-3 carousel-item">
+					<img ng-src="/images/products/{{ form.product_img4 }}" />
+					<div class="edit-avatar">
+						<input type="file"
+							onchange="angular.element(this).scope().imageChanged(this.files,4)" />
+						<i class="fa fa-cloud-upload-alt fa-2x text-primary"></i>
+					</div>
+				</div>
+
+				<div class="row pt-2 indicators-custom">
+					<div class="col-3">
+						<div class="avatar-preview">
+							<img ng-src="/images/products/{{ form.product_img1 }}"
+								data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
+								class="active" aria-current="true" aria-label="Slide 1" />
+							<div class="edit-avatar">
+								<input type="file"
+									onchange="angular.element(this).scope().imageChanged(this.files,1)" />
+								<i class="fa fa-cloud-upload-alt  text-primary"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="avatar-preview">
+							<img ng-src="/images/products/{{ form.product_img2 }}"
+								data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+								aria-label="Slide 2" />
+							<div class="edit-avatar">
+								<input type="file"
+									onchange="angular.element(this).scope().imageChanged(this.files,2)" />
+								<i class="fa fa-cloud-upload-alt  text-primary"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="avatar-preview">
+							<img ng-src="/images/products/{{ form.product_img3 }}"
+								data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+								aria-label="Slide 3" />
+							<div class="edit-avatar">
+								<input type="file"
+									onchange="angular.element(this).scope().imageChanged(this.files,3)" />
+								<i class="fa fa-cloud-upload-alt  text-primary"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="avatar-preview">
+							<img ng-src="/images/products/{{ form.product_img4 }}"
+								data-bs-target="#carouselExampleDark" data-bs-slide-to="3"
+								aria-label="Slide 4" />
+							<div class="edit-avatar">
+								<input type="file"
+									onchange="angular.element(this).scope().imageChanged(this.files,4)" />
+								<i class="fa fa-cloud-upload-alt  text-primary"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h4 class="mt-4">Product Info:</h4>
+				<textarea class="form-control"
+					style="width: 100%; word-wrap: break-word; overflow-wrap: break-word;"
+					rows="5" id="productInfo"
+					ng-model="form.product_info">
+								
+							</textarea>
+
+				<h4 class="mt-4">Benefits:</h4>
+				<textarea class="form-control"
+					style="width: 100%; word-wrap: break-word; overflow-wrap: break-word;"
+					rows="5" id="productBenefits"
+					ng-model="form.product_benefits">
+								
+							</textarea>
+			</div>
+			<div class="col-sm-8">
+				<div class="row">
+					<div class="form-group">
+						<div>Name</div>
+						<input ng-model="form.product_name" class="form-control">
+					</div>
+					<div class="form-group col-sm-6">
+						<div>Price</div>
+						<div class="input-group">
+							<input ng-model="form.product_price" class="form-control"><span
+								class="input-group-text">.VND</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<div>Model</div>
+						<select ng-model="form.productModel.modelname"
+							class="form-select mb-3" aria-label="Default select example">
+							<option ng-repeat="m in models" ng-value="m.modelname">{{m.modelname}}</option>
+						</select>
+					</div>
+					<div class="form-group col-sm-6">
+						<div>Category</div>
+						<select ng-model="form.productModel.productType.id"
+							ng-change="editCategoryProductDesc(form.productModel.productType.id)"
+							class="form-select mb-3">
+							<option ng-repeat="c in cates" ng-value="c.id">{{c.type_name}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<label>Brand</label> <select
+							ng-model="form.productModel.productBrand.id"
+							class="form-select mb-3" aria-label="Default select example">
+							<option ng-repeat="b in brands" ng-value="b.id">{{b.brand_name}}</option>
+						</select>
+					</div>
+					<div class="form-group col-sm-6">
+						<label>Quantity</label>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control"
+								ng-model="form.product_quantity">
+
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<label>Gift</label> <input type="text" class="form-control mb-3"
+							ng-model="form.product_gifts">
+					</div>
+					<div class="form-group col-sm-6">
+						<div>Available?</div>
+						<input type="checkbox" class="form-check-input" id="exampleCheck1" ng-model="form.product_active"> <label
+							class="form-check-label" for="exampleCheck1">Active ?</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h4 class="mx-4">Product Detail:</h4>
+	<div class="px-4" id="productDesc"></div>
+	<div class="panel-footer text-center">
+		<button ng-click="create()" ng-disabled="form.id"
+			class="btn btn-primary">
+			<b class="glyphicon glyphicon-plus"></b> Create
+		</button>
+		<button ng-click="update()" ng-disabled="!form.id"
+			class="btn btn-success">
+			<b class="glyphicon glyphicon-save"></b> Update
+		</button>
+		<button ng-click="delete(form)" ng-disabled="!form.id"
+			class="btn btn-danger">
+			<b class="glyphicon glyphicon-trash"></b> Delete
+		</button>
+		<button ng-click="reset()" class="btn btn-info">
+			<b class="glyphicon glyphicon-refresh"></b> Reset
+		</button>
+	</div>
+</div>

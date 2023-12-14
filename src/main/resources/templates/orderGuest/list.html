@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
+<body>
+	<main th:if="${orderGuest}"> <!-- Nếu tồn tại -->
+		<!-- Start Title -->
+		<div class="container-fluid pt-3 pb-1" style="background-color: rgb(233, 238, 245) !important;">
+			<div class="text-center">
+				<h1 class="fw-bold h2 text-dark">Đơn hàng của bạn !</h1>
+				<p class="text-danger">Nếu có tài khoản xin hãy <a th:href="@{|/login|}">đăng nhập</a> để kiểm tra đơn hàng !</p>
+			</div>
+		</div>
+		<!-- Close Title -->
+		<div class="container my-5">
+			<form th:action="@{|/orderGuest/listCheck|}" method="GET" class="m-auto col-6 shadow p-4 my-4">
+			<p class="text-danger">[(${mess})]</p>
+				<div class="form-group mb-3">
+					<label>PhoneNumber *:</label>
+					<input type="text" name="phonenumber" th:value="${phonenumber}" class="form-control" placeholder="Phone Number ?" minlength="7" maxlength="11" required>
+				</div>
+				<div class="form-group mb-3">
+					<label>Address *:</label> 
+					<input type="text" name="address" th:value="${address}" class="form-control" placeholder="Address ?"  required>
+				</div>
+				<button class="btn btn-warning py-2 mt-2 fw-bold shadow" style="width:100%; text-shadow: 0 0 3px white;">Tìm kiếm đơn hàng</button>
+			</form>
+		</div>
+		
+		<div class="container my-5" th:if="${orderGuest.size() != 0}"> <!-- Trong mảng phải có != 0 phần tử thì mới hiện bảng -->
+			<table class="table table-hover border shadow">
+				<thead>
+					<tr>
+						<th style="padding-left: 8px;">NO.</th>
+						<th>ORDER ID</th>
+						<th>CREATE DATE</th>
+						<th>PHONE NUMBER</th>
+						<th>ADDRESS</th>
+						<th>STATUS</th>
+						<th style="padding-right: 8px;">ORDER DETAILS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="og,i : ${orderGuest}" class="align-middle">
+						<td style="padding-left: 8px;">[(${i.index+1})]</td>
+						<td>[(${og.id})]</td>
+						<td>[(${og.createDate})]</td>
+						<td>[(${og.phonenumber})]</td>
+						<td>[(${og.address})]</td>
+						<th:block th:if="${og.orderStatus.id == 'CXN'}">
+							<td>[(${og.orderStatus.status_name})] - <a th:href="@{|/orderGuest/cancel/${og.id}|}" class="btn btn-outline-danger">Hủy đơn hàng</a></td>
+						</th:block>
+						<th:block th:if="${og.orderStatus.id != 'CXN'}">
+							<td>[(${og.orderStatus.status_name})]</td>
+						</th:block>
+						<td style="padding-right: 8px;"><a th:href="@{|/orderGuest/detail/${og.id}|}" class="btn btn-outline-success"><i class="fa fa-eye"></i> Xem chi tiết</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
+	<main th:unless="${orderGuest}"> <!-- Nếu ko tồn tại -->
+		<!-- Start Title -->
+		<div class="container-fluid pt-3 pb-1" style="background-color: rgb(233, 238, 245) !important;">
+			<div class="text-center">
+				<h1 class="fw-bold h2 text-dark">Tìm kiếm đơn hàng của bạn !</h1>
+				<p class="text-danger">Nếu có tài khoản xin hãy <a th:href="@{|/login|}">đăng nhập</a> để kiểm tra đơn hàng !</p>
+			</div>
+		</div>
+		<!-- Close Title -->
+
+		<div class="container my-5">
+			<form th:action="@{|/orderGuest/listCheck|}" method="GET" class="m-auto col-6 shadow p-4 my-4">
+				<div class="form-group mb-3">
+					<label>PhoneNumber *:</label>
+					<input type="text" name="phonenumber" class="form-control" placeholder="Phone Number ?" minlength="7" maxlength="11" required>
+				</div>
+				<div class="form-group mb-3">
+					<label>Address *:</label> 
+					<input type="text" name="address" class="form-control" placeholder="Address ?"  required>
+				</div>
+				<button class="btn btn-warning py-2 mt-2 fw-bold shadow" style="width:100%; text-shadow: 0 0 3px white;">Tìm kiếm đơn hàng</button>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<div class="card">
+	<div class="card-header">
+		<span><i class="bi bi-table me-1"></i></span> Data Order Guest
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="example" class="table table-striped data-table" style="width: 100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Phonenumber</th>
+						<th style="width: 250px">Address</th>
+						<th>CreateDate</th>
+						<th>Payment Method</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="odg in pager.ordersGuest" scope="row">
+						<td class="align-middle">{{odg.id}}</td>
+						<td class="align-middle">{{odg.phonenumber}}</td>
+						<td class="align-middle">{{odg.address}}</td>
+						<td class="align-middle">{{odg.createDate | date : 'dd-MM-yyyy'}}</td>
+						<td class="align-middle" ng-if="odg.orderMethod.id == 1">Tiền mặt</td>
+						<td class="align-middle" ng-if="odg.orderMethod.id == 2">Paypal</td>
+						<td class="align-middle">
+							<a ng-click="confirm(odg)" class="btn btn-outline-danger fw-bold" ng-if="odg.orderStatus.status_name == 'Chờ xác nhận'"><i class="bi bi-check-square me-1"></i> Xác nhận</a>
+							<span class="text-danger fw-bold" ng-if="odg.orderStatus.status_name != 'Chờ xác nhận'">{{odg.orderStatus.status_name}}</span>
+						</td>
+						<td class="align-middle">
+							<div class="btn-group btn-group-xs">
+							<a ng-click="edit(odg)" href="" class="btn btn-warning">
+								<i class="fas fa-edit"></i>
+							</a>
+							<a ng-click="delete(odg)" href="" class="btn btn-danger">
+								<i class="fas fa-trash"></i>
+							</a>
+							<a ng-click="details(odg)" href="" class="btn btn-success">
+								<i class="bi bi-eye"></i>
+							</a>
+					</div>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>ID</th>
+						<th>Phonenumber</th>
+						<th>Address</th>
+						<th>CreateDate</th>
+						<th>Payment Method</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<div class="card-footer text-end">
+		<button ng-click="pager.first()" class="btn btn-danger">
+			<i class="fas fa-angle-double-left"></i>
+		</button>
+		<button ng-click="pager.prev()" class="btn btn-primary me-1">
+			<i class="fas fa-angle-left"></i>
+		</button>
+		<button class="btn btn-success me-1" ng-repeat="i in pager.array track by $index" ng-click="pager.gotoPage($index)">
+			<b>{{$index + 1}}</b>
+		</button>
+		{{pager.a}}
+		<button ng-click="pager.next()" class="btn btn-primary">
+			<i class="fas fa-angle-right"></i>
+		</button>
+		<button ng-click="pager.last()" class="btn btn-danger">
+			<i class="fas fa-angle-double-right"></i>
+		</button>
+		
+	</div>
+</div>
